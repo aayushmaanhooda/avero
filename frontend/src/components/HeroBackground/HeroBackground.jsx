@@ -1,10 +1,37 @@
+import { useEffect, useRef } from 'react';
+
 const HeroBackground = ({ children }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      const p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // autoplay blocked (iOS Low Power Mode, etc.) — poster stays visible
+        });
+      }
+    };
+
+    tryPlay();
+
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible' && video.paused) tryPlay();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+
   return (
     <section
       id="top"
       className="relative min-h-screen w-full overflow-hidden bg-brand-950"
     >
       <video
+        ref={videoRef}
         className="bg-video pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
         autoPlay
         muted

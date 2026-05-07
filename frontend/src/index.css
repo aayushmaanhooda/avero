@@ -46,10 +46,16 @@ body {
 
 /* Hide iOS Safari's native play-button overlay on background videos
    so they fall back to the poster image when autoplay is blocked
-   (e.g. iOS Low Power Mode, data saver). */
+   (e.g. iOS Low Power Mode, data saver). The overlay-play-button
+   variant is what iOS shows when a video has a `poster` attribute. */
 .bg-video::-webkit-media-controls,
 .bg-video::-webkit-media-controls-panel,
-.bg-video::-webkit-media-controls-start-playback-button {
+.bg-video::-webkit-media-controls-play-button,
+.bg-video::-webkit-media-controls-start-playback-button,
+.bg-video::-webkit-media-controls-overlay-play-button,
+.bg-video::-webkit-media-controls-overlay-enclosure {
   display: none !important;
   -webkit-appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
