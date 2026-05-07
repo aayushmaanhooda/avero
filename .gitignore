@@ -14,5 +14,4 @@ backend/.env
 backend/.agents/
 backend/.claude/
 
-backend/.fastapicloud/
 backend/src/docs/
