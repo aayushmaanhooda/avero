@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     PINECONE_NAMESPACE: str 
 
     # streaming
-    SSE_TOKEN_DELAY_SECONDS: float = 0.03
+    SSE_TOKEN_DELAY_SECONDS: float = 0.05
 
 
 @lru_cache()
