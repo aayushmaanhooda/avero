@@ -13,5 +13,3 @@ backend/.venv
 backend/.env
 backend/.agents/
 backend/.claude/
-
-backend/src/docs/
