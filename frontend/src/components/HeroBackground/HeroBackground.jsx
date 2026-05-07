@@ -11,8 +11,9 @@ const HeroBackground = ({ children }) => {
         loop
         playsInline
         preload="auto"
+        poster="/videos/hero-poster.jpg"
       >
-        <source src="/videos/hero.mp4" type="video/mp4" />
+        <source src="/videos/hero-optimized.mp4" type="video/mp4" />
       </video>
 
       {/* dark legibility wash */}
