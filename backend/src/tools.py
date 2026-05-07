@@ -2,8 +2,8 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from langchain.tools import tool
 from langchain_tavily import TavilySearch
-from config import get_settings
-from rag.retriever import search_avreo_knowledge
+from src.config import get_settings
+from src.rag.retriever import search_avreo_knowledge
 
 settings = get_settings()
 

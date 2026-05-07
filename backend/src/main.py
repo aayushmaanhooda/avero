@@ -4,11 +4,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.sse import EventSourceResponse, ServerSentEvent
 
-from agent import stream_agent
-from schemas import ChatChunk, ChatRequest
+from src.agent import stream_agent
+from src.schemas import ChatChunk, ChatRequest
 
 
-app = FastAPI(title="Avreo Backend")
+app = FastAPI(title="Avero Backend")
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,6 +16,7 @@ app.add_middleware(
         "http://localhost:5173",
         "http://localhost:5174",
         "http://localhost:5175",
+        "https://avero-gamma.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -52,4 +53,5 @@ async def chatbot(req: ChatRequest) -> AsyncIterable[ServerSentEvent]:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", port=8000, host="localhost", reload=True)
+    uvicorn.run("src.main:app", port=8000, host="localhost")
+    
