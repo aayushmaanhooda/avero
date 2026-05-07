@@ -177,7 +177,9 @@ const WhatWeDo = () => {
           muted
           loop
           playsInline
-          className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[80%] w-full object-cover"
+          disablePictureInPicture
+          disableRemotePlayback
+          className="bg-video pointer-events-none absolute inset-x-0 top-0 -z-20 h-[80%] w-full object-cover"
           style={{
             opacity: 0.45,
             maskImage:

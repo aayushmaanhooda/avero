@@ -23,7 +23,9 @@ const SuccessStories = () => {
         muted
         loop
         playsInline
-        className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover"
+        disablePictureInPicture
+        disableRemotePlayback
+        className="bg-video pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover"
       >
         <source src="/videos/clouds.mp4" type="video/mp4" />
       </video>

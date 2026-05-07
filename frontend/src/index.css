@@ -43,3 +43,13 @@ body {
     animation: none;
   }
 }
+
+/* Hide iOS Safari's native play-button overlay on background videos
+   so they fall back to the poster image when autoplay is blocked
+   (e.g. iOS Low Power Mode, data saver). */
+.bg-video::-webkit-media-controls,
+.bg-video::-webkit-media-controls-panel,
+.bg-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+}

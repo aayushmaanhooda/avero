@@ -5,13 +5,15 @@ const HeroBackground = ({ children }) => {
       className="relative min-h-screen w-full overflow-hidden bg-brand-950"
     >
       <video
-        className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
+        className="bg-video pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
         poster="/videos/hero-poster.jpg"
+        disablePictureInPicture
+        disableRemotePlayback
       >
         <source src="/videos/hero-optimized.mp4" type="video/mp4" />
       </video>
