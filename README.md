@@ -1,4 +1,6 @@
-# Avreo 
+<p align="center">
+  <img src="frontend/public/logo/logo.png" alt="Avreo" width="200" />
+</p>
 
 Landing page for **Avreo** — and the MVP behind it: the **Avreo chat agent**.
 
