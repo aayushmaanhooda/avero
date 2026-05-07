@@ -138,7 +138,14 @@ const ChatWidget = () => {
   }
 
   useEffect(() => {
-    if (open && inputRef.current) inputRef.current.focus();
+    if (
+      open &&
+      inputRef.current &&
+      typeof window !== 'undefined' &&
+      window.matchMedia('(min-width: 768px)').matches
+    ) {
+      inputRef.current.focus();
+    }
   }, [open]);
 
   useEffect(() => {
@@ -286,10 +293,10 @@ const ChatWidget = () => {
         type="button"
         aria-label={open ? 'Close Yianni' : 'Open Yianni'}
         onClick={() => setOpen((v) => !v)}
-        className="group fixed bottom-6 right-6 z-[60] md:bottom-8 md:right-8"
+        className="group fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-[60] md:bottom-8 md:right-8"
       >
         <div
-          className="relative flex h-[62px] w-[62px] items-center justify-center border border-white/30 bg-brand-950/95 backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-white/50 md:h-[70px] md:w-[70px]"
+          className="relative flex h-14 w-14 items-center justify-center border border-white/30 bg-brand-950/95 backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-white/50 md:h-[70px] md:w-[70px]"
           style={{ borderRadius: '22px 22px 6px 22px' }}
         >
           {open ? (
@@ -299,7 +306,7 @@ const ChatWidget = () => {
             />
           ) : (
             <div
-              className="h-8 w-8 md:h-9 md:w-9"
+              className="h-7 w-7 md:h-9 md:w-9"
               style={chatMaskStyle}
             />
           )}
@@ -313,7 +320,7 @@ const ChatWidget = () => {
 
       {/* Panel */}
       <div
-        className={`fixed bottom-24 right-4 z-[60] w-[calc(100vw-2rem)] max-w-[400px] origin-bottom-right transition duration-300 md:bottom-28 md:right-7 ${
+        className={`fixed inset-x-3 bottom-[calc(5rem+env(safe-area-inset-bottom))] top-3 z-[60] w-auto max-w-none origin-bottom transition duration-300 md:inset-x-auto md:top-auto md:bottom-28 md:right-7 md:w-[calc(100vw-2rem)] md:max-w-[400px] md:origin-bottom-right ${
           open
             ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none translate-y-2 scale-95 opacity-0'
@@ -323,7 +330,7 @@ const ChatWidget = () => {
         aria-hidden={!open}
       >
         <div
-          className="flex h-[560px] max-h-[78vh] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0B1A36] backdrop-blur-xl"
+          className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0B1A36] backdrop-blur-xl md:h-[560px] md:max-h-[78vh]"
           style={{
             boxShadow:
               '0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset',
@@ -352,15 +359,15 @@ const ChatWidget = () => {
           {/* Body */}
           <div
             ref={scrollRef}
-            className="flex-1 overflow-y-auto px-5 pb-6 pt-14 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="min-h-0 flex-1 overflow-y-auto px-4 pb-4 pt-6 [-ms-overflow-style:none] [scrollbar-width:none] md:px-5 md:pb-6 md:pt-14 [&::-webkit-scrollbar]:hidden"
           >
             {showWelcome ? (
               <>
                 <div className="flex flex-col items-center text-center">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/[0.06] ring-1 ring-white/10">
-                    <div className="h-8 w-8" style={chatMaskStyle} />
+                  <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white/[0.06] ring-1 ring-white/10 md:h-16 md:w-16">
+                    <div className="h-7 w-7 md:h-8 md:w-8" style={chatMaskStyle} />
                   </div>
-                  <h3 className="mt-5 text-base font-semibold text-white">
+                  <h3 className="mt-4 text-base font-semibold text-white md:mt-5">
                     I'm{' '}
                     <span style={{ color: ACCENT }} className="font-display italic">
                       Yianni
@@ -373,14 +380,14 @@ const ChatWidget = () => {
                   </p>
                 </div>
 
-                <ul className="mt-6 space-y-2.5">
+                <ul className="mt-5 space-y-2 md:mt-6 md:space-y-2.5">
                   {remainingSuggestions.map((s) => (
                     <li key={s.label}>
                       <button
                         type="button"
                         onClick={() => send(s.label)}
                         disabled={streaming}
-                        className="group flex w-full items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-3 text-left text-[13px] text-white/75 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white disabled:opacity-50"
+                        className="group flex w-full items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-left text-[13px] text-white/75 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white disabled:opacity-50 md:py-3"
                       >
                         <FontAwesomeIcon
                           icon={s.icon}
@@ -471,8 +478,11 @@ const ChatWidget = () => {
           )}
 
           {/* Composer */}
-          <form onSubmit={onSubmit} className="border-t border-white/10 px-4 py-3">
-            <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 focus-within:border-white/25">
+          <form
+            onSubmit={onSubmit}
+            className="border-t border-white/10 px-3 py-2.5 md:px-4 md:py-3"
+          >
+            <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 focus-within:border-white/25 md:py-2.5">
               <input
                 ref={inputRef}
                 type="text"
@@ -480,7 +490,7 @@ const ChatWidget = () => {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask Yianni about Avreo..."
                 disabled={streaming}
-                className="min-w-0 flex-1 bg-transparent text-sm text-white placeholder-white/35 focus:outline-none disabled:opacity-50"
+                className="min-w-0 flex-1 bg-transparent text-base text-white placeholder-white/35 focus:outline-none disabled:opacity-50 md:text-sm"
               />
               <button
                 type="button"
