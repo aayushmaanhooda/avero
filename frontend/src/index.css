@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.py-3 {
+  padding-top: 0.60rem;
+  padding-bottom: 0.75rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  @apply bg-brand-950 text-white font-sans antialiased;
+}
+
+.shiny-border {
+  position: relative;
+  background-image: linear-gradient(
+    90deg,
+    #1F487E 0%,
+    #6290C8 25%,
+    #FFFFFF 50%,
+    #6290C8 75%,
+    #1F487E 100%
+  );
+  background-size: 300% 100%;
+  animation: shiny-border-slide 3s linear infinite;
+}
+
+@keyframes shiny-border-slide {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shiny-border {
+    animation: none;
+  }
+}

@@ -1,0 +1,33 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from functools import lru_cache
+import os
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"),
+        env_file_encoding="utf-8",
+    )
+
+    # llms
+    OPENAI_API_KEY: str
+    TAVILY_API_KEY: str
+
+    # tracing
+    LANGSMITH_TRACING: bool = True
+    LANGSMITH_ENDPOINT:str = "https://api.smith.langchain.com"
+    LANGSMITH_API_KEY: str
+    LANGSMITH_PROJECT:str 
+
+    # vector db
+    PINECONE_API_KEY: str
+    PINECONE_INDEX_NAME: str 
+    PINECONE_NAMESPACE: str 
+
+
+@lru_cache()
+def get_settings() -> Settings:
+    settings = Settings()
+    for key, value in settings.model_dump().items():
+        if value is not None:
+            os.environ.setdefault(key, str(value))
+    return settings

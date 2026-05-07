@@ -1,0 +1,49 @@
+.shiny-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.shiny-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 60%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(98, 144, 200, 0.45) 45%,
+    rgba(31, 72, 126, 0.55) 50%,
+    rgba(98, 144, 200, 0.45) 55%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-150%) skewX(-20deg);
+  animation: shiny-sweep 3.2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+.shiny-btn > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes shiny-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  60% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shiny-btn::before {
+    animation: none;
+    display: none;
+  }
+}
