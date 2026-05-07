@@ -42,10 +42,10 @@ const Hero = () => {
         </div>
 
         <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-start sm:gap-4">
-          {/* Primary — solid brand-blue */}
           <a
             href="#ai-native"
-            className="inline-flex items-center justify-center rounded-2xl bg-brand-800 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-950/30 transition duration-300 hover:-translate-y-0.5 hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 sm:text-base"
+            className="inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-semibold text-brand-950 shadow-lg shadow-brand-950/30 transition duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 sm:text-base"
+            style={{ backgroundColor: ACCENT }}
           >
             Explore your AI-native future
           </a>

@@ -138,8 +138,8 @@ const WhatWeDo = () => {
 
   return (
     <div className="min-h-screen bg-brand-950 text-white">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-brand-950/70 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-12">
+      <header className="fixed inset-x-4 top-4 z-50 rounded-2xl border border-white/10 bg-brand-950/70 backdrop-blur-md transition-colors duration-300 md:inset-x-8">
+        <div className="flex items-center justify-between px-5 py-3 md:px-6 md:py-3">
           <Link to="/" aria-label="Avreo home" className="inline-flex items-center">
             <div
               aria-hidden="true"
