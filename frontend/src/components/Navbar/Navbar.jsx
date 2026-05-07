@@ -1,25 +1,30 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ShinyButton from '../ShinyButton';
+import { scrollToSection as scrollToPageSection } from '../../utils/scrollToSection';
 
 const NAV_LINKS = [
-  { label: 'The Shift', href: '#the-shift' },
-  { label: 'AI-Native', href: '#ai-native' },
-  { label: 'Our Approach', href: '#our-approach' },
-  { label: 'Why Now', href: '#why-now' },
+  { label: 'The Shift', sectionId: 'the-shift' },
+  { label: 'AI-Native', sectionId: 'ai-native' },
+  { label: 'Our Approach', sectionId: 'our-approach' },
+  { label: 'Why Now', sectionId: 'why-now' },
   { label: 'What We Do', href: '/what-we-do' },
-  { label: 'Contact Us', href: '#contact' },
+  { label: 'Contact Us', sectionId: 'contact' },
 ];
 
-const NavLinkItem = ({ link, className, onClick }) =>
-  link.href.startsWith('/') ? (
+const NavLinkItem = ({ link, className, onSectionClick, onClick }) =>
+  link.href ? (
     <Link to={link.href} onClick={onClick} className={className}>
       {link.label}
     </Link>
   ) : (
-    <a href={link.href} onClick={onClick} className={className}>
+    <button
+      type="button"
+      onClick={(event) => onSectionClick(event, link.sectionId)}
+      className={className}
+    >
       {link.label}
-    </a>
+    </button>
   );
 
 const logoMaskStyle = {
@@ -45,6 +50,12 @@ const Navbar = () => {
   }, []);
 
   const closeMenu = () => setOpen(false);
+  const handleSectionClick = (event, sectionId) => {
+    event?.preventDefault();
+    closeMenu();
+
+    scrollToPageSection(sectionId);
+  };
 
   return (
     <nav
@@ -57,9 +68,9 @@ const Navbar = () => {
       }
     >
       <div className="flex items-center justify-between px-5 py-3 md:px-6 md:py-3">
-        <a
-          href="#top"
-          onClick={closeMenu}
+        <button
+          type="button"
+          onClick={(event) => handleSectionClick(event, 'top')}
           aria-label="Avreo home"
           className="flex items-center"
         >
@@ -68,13 +79,14 @@ const Navbar = () => {
             className="h-7 w-[98px] md:h-8 md:w-[112px] bg-white"
             style={logoMaskStyle}
           />
-        </a>
+        </button>
 
         <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-white/85">
           {NAV_LINKS.map((link) => (
-            <li key={link.href}>
+            <li key={link.href ?? link.sectionId}>
               <NavLinkItem
                 link={link}
+                onSectionClick={handleSectionClick}
                 className="transition-colors hover:text-brand-200"
               />
             </li>
@@ -82,7 +94,9 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden md:block">
-          <ShinyButton href="#contact">Get in Touch</ShinyButton>
+          <ShinyButton onClick={(event) => handleSectionClick(event, 'contact')}>
+            Get in Touch
+          </ShinyButton>
         </div>
 
         <button
@@ -123,17 +137,21 @@ const Navbar = () => {
         <div className="md:hidden border-t border-white/10 px-5 pb-4 pt-2">
           <ul className="flex flex-col gap-1 text-sm font-medium text-white/90">
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
+              <li key={link.href ?? link.sectionId}>
                 <NavLinkItem
                   link={link}
                   onClick={closeMenu}
-                  className="block rounded-lg px-3 py-2 transition-colors hover:bg-white/10 hover:text-brand-200"
+                  onSectionClick={handleSectionClick}
+                  className="block w-full rounded-lg px-3 py-2 text-left transition-colors hover:bg-white/10 hover:text-brand-200"
                 />
               </li>
             ))}
           </ul>
           <div className="mt-3 px-1">
-            <ShinyButton href="#contact" onClick={closeMenu} className="w-full">
+            <ShinyButton
+              onClick={(event) => handleSectionClick(event, 'contact')}
+              className="w-full"
+            >
               Get in Touch
             </ShinyButton>
           </div>

@@ -6,6 +6,7 @@ import {
   faPlane,
   faArrowsRotate,
 } from '@fortawesome/free-solid-svg-icons';
+import { scrollToSection } from '../../utils/scrollToSection';
 
 const ACCENT = '#00BBFF';
 
@@ -169,12 +170,13 @@ const TheShift = () => {
 
         <div className="mt-16 flex flex-col items-center gap-3 md:mt-20">
           <p className="text-sm text-white/60">Not sure where you sit on the path?</p>
-          <a
-            href="#quiz"
+          <button
+            type="button"
+            onClick={() => scrollToSection('contact')}
             className="inline-flex items-center justify-center rounded-2xl bg-brand-800 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-950/30 ring-1 ring-white/10 transition duration-300 hover:-translate-y-0.5 hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 sm:text-base"
           >
             Find your stage — take the 2-minute quiz
-          </a>
+          </button>
         </div>
       </div>
     </section>

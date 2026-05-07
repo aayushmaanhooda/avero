@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { scrollToSection } from '../../utils/scrollToSection';
 
 const ACCENT = '#00BBFF';
 
@@ -73,8 +74,9 @@ const Boarding = () => {
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={() => scrollToSection('contact')}
             className="group inline-flex items-center justify-center gap-2 rounded-2xl px-7 py-3.5 text-sm font-semibold text-brand-950 shadow-lg shadow-brand-950/40 transition duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:text-base"
             style={{ backgroundColor: ACCENT }}
           >
@@ -83,14 +85,15 @@ const Boarding = () => {
               icon={faArrowRight}
               className="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
             />
-          </a>
+          </button>
 
-          <a
-            href="#our-approach"
+          <button
+            type="button"
+            onClick={() => scrollToSection('our-approach')}
             className="inline-flex items-center justify-center rounded-2xl border border-white/30 bg-white/[0.08] px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.14] focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:text-base"
           >
             Explore our approach
-          </a>
+          </button>
         </div>
       </div>
     </section>

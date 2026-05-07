@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocket } from '@fortawesome/free-solid-svg-icons';
+import { scrollToSection } from '../../utils/scrollToSection';
 
 const ACCENT = '#00BBFF';
 
@@ -42,20 +43,22 @@ const Hero = () => {
         </div>
 
         <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-start sm:gap-4">
-          <a
-            href="#ai-native"
+          <button
+            type="button"
+            onClick={() => scrollToSection('ai-native')}
             className="inline-flex items-center justify-center rounded-2xl bg-accent px-6 py-3 text-sm font-semibold text-brand-950 shadow-lg shadow-brand-950/30 transition duration-300 hover:-translate-y-0.5 hover:bg-brand-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 sm:text-base"
           >
             Explore your AI-native future
-          </a>
+          </button>
 
           {/* Secondary — the only white button */}
-          <a
-            href="#our-approach"
+          <button
+            type="button"
+            onClick={() => scrollToSection('our-approach')}
             className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-brand-950 ring-1 ring-white/40 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-400/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 sm:text-base"
           >
             Learn how we work
-          </a>
+          </button>
         </div>
       </div>
     </div>
