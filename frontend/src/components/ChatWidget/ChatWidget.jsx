@@ -327,7 +327,7 @@ const ChatWidget = () => {
         }`}
         role="dialog"
         aria-label="Chat with Yianni"
-        aria-hidden={!open}
+        inert={!open ? '' : undefined}
       >
         <div
           className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0B1A36] backdrop-blur-xl md:h-[560px] md:max-h-[78vh]"
@@ -359,7 +359,7 @@ const ChatWidget = () => {
           {/* Body */}
           <div
             ref={scrollRef}
-            className="min-h-0 flex-1 overflow-y-auto px-4 pb-4 pt-6 [-ms-overflow-style:none] [scrollbar-width:none] md:px-5 md:pb-6 md:pt-14 [&::-webkit-scrollbar]:hidden"
+            className="min-h-0 flex-1 overflow-y-auto px-4 pb-4 pt-6 [-ms-overflow-style:none] [scrollbar-width:none] md:px-5 md:pb-6 md:pt-12 [&::-webkit-scrollbar]:hidden"
           >
             {showWelcome ? (
               <>

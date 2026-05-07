@@ -81,7 +81,7 @@ const Navbar = () => {
           />
         </button>
 
-        <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-white/85">
+        <ul className="hidden min-[900px]:flex items-center gap-7 text-sm font-medium text-white/85">
           {NAV_LINKS.map((link) => (
             <li key={link.href ?? link.sectionId}>
               <NavLinkItem
@@ -93,7 +93,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="hidden md:block">
+        <div className="hidden min-[900px]:block">
           <ShinyButton onClick={(event) => handleSectionClick(event, 'contact')}>
             Get in Touch
           </ShinyButton>
@@ -104,7 +104,7 @@ const Navbar = () => {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           onClick={() => setOpen((prev) => !prev)}
-          className="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+          className="min-[900px]:hidden inline-flex items-center justify-center rounded-lg p-2 text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,7 @@ const Navbar = () => {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-white/10 px-5 pb-4 pt-2">
+        <div className="min-[900px]:hidden border-t border-white/10 px-5 pb-4 pt-2">
           <ul className="flex flex-col gap-1 text-sm font-medium text-white/90">
             {NAV_LINKS.map((link) => (
               <li key={link.href ?? link.sectionId}>
