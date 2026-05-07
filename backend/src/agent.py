@@ -1,3 +1,4 @@
+import asyncio
 from collections.abc import AsyncIterator
 
 from dotenv import load_dotenv
@@ -11,7 +12,9 @@ from langgraph.checkpoint.memory import MemorySaver  # noqa: E402
 from src.llm import llm  # noqa: E402
 from src.tools import tools as agent_tools  # noqa: E402
 from src.prompt import system_prompt  # noqa: E402
+from src.config import get_settings  # noqa: E402
 
+settings = get_settings()
 model = llm.openai()
 
 # In-memory thread history. Per-thread state is keyed by `thread_id`
@@ -61,12 +64,14 @@ async def stream_agent(message: str, thread_id: str) -> AsyncIterator[str]:
                 content = getattr(chunk, "content", None)
                 if isinstance(content, str) and content:
                     yield content
+                    await asyncio.sleep(settings.SSE_TOKEN_DELAY_SECONDS)
                 elif isinstance(content, list):
                     for part in content:
                         if isinstance(part, dict) and part.get("type") == "text":
                             text = part.get("text", "")
                             if text:
                                 yield text
+                                await asyncio.sleep(settings.SSE_TOKEN_DELAY_SECONDS)
     finally:
         wait_for_all_tracers()
 

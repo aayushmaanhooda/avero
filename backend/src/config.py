@@ -21,9 +21,12 @@ class Settings(BaseSettings):
     LANGSMITH_PROJECT:str 
 
     # vector db
-    PINECONE_API_KEY: str
+    PINECONE_API_KEY: str 
     PINECONE_INDEX_NAME: str 
     PINECONE_NAMESPACE: str 
+
+    # streaming
+    SSE_TOKEN_DELAY_SECONDS: float = 0.03
 
 
 @lru_cache()
