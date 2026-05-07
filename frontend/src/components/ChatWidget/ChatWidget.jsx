@@ -51,10 +51,28 @@ const CANNED_ANSWERS = {
 const CANNED_DELAY_MS = 2000;
 const CANNED_TOKEN_INTERVAL_MS = 35;
 
-// Lightweight inline renderer for assistant messages. Handles markdown
-// links `[text](url)` and bold `**text**`. Anything else passes through as
-// plain text. Newlines are preserved via `whitespace-pre-wrap` on the bubble.
-const INLINE_PATTERN = /(\[[^\]]+\]\((https?:\/\/[^)]+)\))|(\*\*[^*]+\*\*)/g;
+// Lightweight inline renderer for assistant messages. Handles markdown links,
+// bare URLs and bold text. Newlines are preserved via `whitespace-pre-wrap`.
+const INLINE_PATTERN =
+  /(\[[^\]]+\]\((https?:\/\/[^)]+)\))|(\*\*[^*]+\*\*)|(https?:\/\/[^\s<]+)/g;
+const TRAILING_URL_PUNCTUATION = /[.,!?;:)]+$/;
+
+const renderExternalLink = (href, label, key) => (
+  <a
+    key={key}
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.06] px-2 py-0.5 font-medium transition hover:border-white/25 hover:bg-white/[0.10]"
+    style={{ color: ACCENT }}
+  >
+    <span>{label}</span>
+    <FontAwesomeIcon
+      icon={faArrowUpRightFromSquare}
+      className="h-2.5 w-2.5 opacity-80"
+    />
+  </a>
+);
 
 const renderInline = (text) => {
   if (!text) return text;
@@ -67,28 +85,18 @@ const renderInline = (text) => {
     if (m.index > last) out.push(text.slice(last, m.index));
     if (m[1]) {
       const inner = m[1].match(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/);
-      out.push(
-        <a
-          key={key++}
-          href={inner[2]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.06] px-2 py-0.5 font-medium transition hover:border-white/25 hover:bg-white/[0.10]"
-          style={{ color: ACCENT }}
-        >
-          <span>{inner[1]}</span>
-          <FontAwesomeIcon
-            icon={faArrowUpRightFromSquare}
-            className="h-2.5 w-2.5 opacity-80"
-          />
-        </a>,
-      );
+      out.push(renderExternalLink(inner[2], inner[1], key++));
     } else if (m[3]) {
       out.push(
         <strong key={key++} className="font-semibold text-white">
           {m[3].slice(2, -2)}
         </strong>,
       );
+    } else if (m[4]) {
+      const trailing = m[4].match(TRAILING_URL_PUNCTUATION)?.[0] ?? '';
+      const href = trailing ? m[4].slice(0, -trailing.length) : m[4];
+      out.push(renderExternalLink(href, href, key++));
+      if (trailing) out.push(trailing);
     }
     last = INLINE_PATTERN.lastIndex;
   }
