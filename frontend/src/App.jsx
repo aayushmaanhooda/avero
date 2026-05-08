@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import AINative from './components/AINative';
 import Boarding from './components/Boarding';
 import Contact from './components/Contact';
@@ -37,6 +38,8 @@ const App = () => {
       <Contact />
 
       <Footer />
+
+      <Analytics />
     </div>
   );
 };
