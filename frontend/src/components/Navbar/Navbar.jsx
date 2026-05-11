@@ -14,17 +14,22 @@ const NAV_LINKS = [
   { label: 'Contact Us', sectionId: 'contact' },
 ];
 
-const BetaBadge = () => (
-  <span className="ml-2 inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-1.5 py-[1px] text-[9px] font-semibold uppercase tracking-wide text-accent leading-none align-middle">
-    Beta
-  </span>
-);
+const LabelWithBadge = ({ label, isBeta }) =>
+  isBeta ? (
+    <span className="relative inline-flex items-center">
+      {label}
+      <span className="ml-2 inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-1.5 py-[1px] text-[9px] font-semibold uppercase tracking-wide text-accent leading-none align-middle min-[900px]:ml-0 min-[900px]:absolute min-[900px]:-top-3 min-[900px]:left-1/2 min-[900px]:-translate-x-1/2 min-[900px]:pointer-events-none">
+        Beta
+      </span>
+    </span>
+  ) : (
+    label
+  );
 
 const NavLinkItem = ({ link, className, onSectionClick, onClick }) =>
   link.href ? (
     <Link to={link.href} onClick={onClick} className={className}>
-      {link.label}
-      {link.isBeta && <BetaBadge />}
+      <LabelWithBadge label={link.label} isBeta={link.isBeta} />
     </Link>
   ) : (
     <button
@@ -32,8 +37,7 @@ const NavLinkItem = ({ link, className, onSectionClick, onClick }) =>
       onClick={(event) => onSectionClick(event, link.sectionId)}
       className={className}
     >
-      {link.label}
-      {link.isBeta && <BetaBadge />}
+      <LabelWithBadge label={link.label} isBeta={link.isBeta} />
     </button>
   );
 
