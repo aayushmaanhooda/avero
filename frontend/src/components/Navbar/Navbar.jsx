@@ -15,29 +15,27 @@ const NAV_LINKS = [
 ];
 
 const BetaBadge = () => (
-  <span className="pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-accent/40 bg-accent/10 px-1.5 py-[1px] text-[9px] font-semibold uppercase tracking-wide text-accent leading-none">
+  <span className="ml-2 inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-1.5 py-[1px] text-[9px] font-semibold uppercase tracking-wide text-accent leading-none align-middle">
     Beta
   </span>
 );
 
-const NavLinkItem = ({ link, className, onSectionClick, onClick }) => {
-  const wrapperClass = `relative inline-flex items-center ${className ?? ''}`;
-  return link.href ? (
-    <Link to={link.href} onClick={onClick} className={wrapperClass}>
-      {link.isBeta && <BetaBadge />}
+const NavLinkItem = ({ link, className, onSectionClick, onClick }) =>
+  link.href ? (
+    <Link to={link.href} onClick={onClick} className={className}>
       {link.label}
+      {link.isBeta && <BetaBadge />}
     </Link>
   ) : (
     <button
       type="button"
       onClick={(event) => onSectionClick(event, link.sectionId)}
-      className={wrapperClass}
+      className={className}
     >
-      {link.isBeta && <BetaBadge />}
       {link.label}
+      {link.isBeta && <BetaBadge />}
     </button>
   );
-};
 
 const logoMaskStyle = {
   WebkitMaskImage: 'url(/logo/logo.png)',
