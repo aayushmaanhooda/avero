@@ -9,25 +9,35 @@ const NAV_LINKS = [
   { label: 'Our Approach', sectionId: 'our-approach' },
   { label: 'Why Now', sectionId: 'why-now' },
   { label: 'What We Do', href: '/what-we-do' },
-  { label: 'Marketing', href: '/marketing' },
-  { label: 'Branding', href: '/branding' },
+  { label: 'Marketing', href: '/marketing', isBeta: true },
+  { label: 'Branding', href: '/branding', isBeta: true },
   { label: 'Contact Us', sectionId: 'contact' },
 ];
 
-const NavLinkItem = ({ link, className, onSectionClick, onClick }) =>
-  link.href ? (
-    <Link to={link.href} onClick={onClick} className={className}>
+const BetaBadge = () => (
+  <span className="pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-accent/40 bg-accent/10 px-1.5 py-[1px] text-[9px] font-semibold uppercase tracking-wide text-accent leading-none">
+    Beta
+  </span>
+);
+
+const NavLinkItem = ({ link, className, onSectionClick, onClick }) => {
+  const wrapperClass = `relative inline-flex items-center ${className ?? ''}`;
+  return link.href ? (
+    <Link to={link.href} onClick={onClick} className={wrapperClass}>
+      {link.isBeta && <BetaBadge />}
       {link.label}
     </Link>
   ) : (
     <button
       type="button"
       onClick={(event) => onSectionClick(event, link.sectionId)}
-      className={className}
+      className={wrapperClass}
     >
+      {link.isBeta && <BetaBadge />}
       {link.label}
     </button>
   );
+};
 
 const logoMaskStyle = {
   WebkitMaskImage: 'url(/logo/logo.png)',
