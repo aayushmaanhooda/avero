@@ -9,6 +9,8 @@ const NAV_LINKS = [
   { label: 'Our Approach', sectionId: 'our-approach' },
   { label: 'Why Now', sectionId: 'why-now' },
   { label: 'What We Do', href: '/what-we-do' },
+  { label: 'Marketing', href: '/marketing' },
+  { label: 'Branding', href: '/branding' },
   { label: 'Contact Us', sectionId: 'contact' },
 ];
 

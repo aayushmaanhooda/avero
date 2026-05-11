@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
 import ChatWidget from './components/ChatWidget';
+import Branding from './pages/Branding';
+import Marketing from './pages/Marketing';
 import Privacy from './pages/Privacy';
 import WhatWeDo from './pages/WhatWeDo';
 import './index.css';
@@ -13,6 +15,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/what-we-do" element={<WhatWeDo />} />
+        <Route path="/marketing" element={<Marketing />} />
+        <Route path="/branding" element={<Branding />} />
         <Route path="/privacy" element={<Privacy />} />
       </Routes>
       <ChatWidget />
