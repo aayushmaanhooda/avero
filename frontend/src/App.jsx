@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import AINative from './components/AINative';
 import Boarding from './components/Boarding';
@@ -11,8 +12,13 @@ import OurApproach from './components/OurApproach';
 import SuccessStories from './components/SuccessStories';
 import TheShift from './components/TheShift';
 import WhyNow from './components/WhyNow';
+import { preloadSecondaryAssets } from './utils/preloadAssets';
 
 const App = () => {
+  useEffect(() => {
+    preloadSecondaryAssets();
+  }, []);
+
   return (
     <div className="min-h-screen bg-brand-950 text-white">
       <Navbar />
